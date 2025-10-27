@@ -1,14 +1,20 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from 'next'
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // ✅ Remove deprecated eslint config — use CLI flags instead
   typescript: {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['placeholder.svg'],
+    // ✅ Replace deprecated `domains` with `remotePatterns`
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placeholder.svg', // or the real image host
+        pathname: '**',
+      },
+    ],
     unoptimized: true,
   },
 }
