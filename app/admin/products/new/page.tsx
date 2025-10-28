@@ -1,26 +1,11 @@
-import { redirect } from "next/navigation"
-import { createClient } from "@/lib/supabase/server"
 import { ProductForm } from "@/components/product-form"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export default async function NewProductPage() {
-  const supabase = await createClient()
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    redirect("/auth/login")
-  }
-
-  const { data: userData } = await supabase.from("users").select("role").eq("id", user.id).single()
-
-  if (userData?.role !== "admin") {
-    redirect("/products")
-  }
+  // For demo purposes, we'll assume user is always admin
+  // In a real app, you'd check authentication here
 
   return (
     <div className="min-h-screen bg-background">

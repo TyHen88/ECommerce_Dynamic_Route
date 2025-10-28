@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -9,7 +8,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { createClient } from "@/lib/supabase/client"
 import { useToast } from "@/hooks/use-toast"
 
 type Product = {
@@ -41,47 +39,16 @@ export function ProductForm({ product }: { product?: Product }) {
       category: formData.get("category") as string,
     }
 
-    const supabase = createClient()
-
-    if (product) {
-      // Update existing product
-      const { error } = await supabase.from("products").update(data).eq("id", product.id)
-
-      if (error) {
-        toast({
-          title: "Error",
-          description: "Failed to update product",
-          variant: "destructive",
-        })
-      } else {
-        toast({
-          title: "Success",
-          description: "Product updated successfully",
-        })
-        router.push("/admin")
-        router.refresh()
-      }
-    } else {
-      // Create new product
-      const { error } = await supabase.from("products").insert([data])
-
-      if (error) {
-        toast({
-          title: "Error",
-          description: "Failed to create product",
-          variant: "destructive",
-        })
-      } else {
-        toast({
-          title: "Success",
-          description: "Product created successfully",
-        })
-        router.push("/admin")
-        router.refresh()
-      }
-    }
-
-    setIsSubmitting(false)
+    // Simulate API call - in a real app, you'd save to your database
+    setTimeout(() => {
+      setIsSubmitting(false)
+      toast({
+        title: "Success",
+        description: product ? "Product updated successfully" : "Product created successfully",
+      })
+      router.push("/admin")
+      router.refresh()
+    }, 1000)
   }
 
   return (

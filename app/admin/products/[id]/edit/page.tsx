@@ -1,29 +1,17 @@
-import { redirect, notFound } from "next/navigation"
-import { createClient } from "@/lib/supabase/server"
+import { notFound } from "next/navigation"
 import { ProductForm } from "@/components/product-form"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
+import { getProductById } from "@/lib/data"
 
 export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const supabase = await createClient()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // For demo purposes, we'll assume user is always admin
+  // In a real app, you'd check authentication here
 
-  if (!user) {
-    redirect("/auth/login")
-  }
-
-  const { data: userData } = await supabase.from("users").select("role").eq("id", user.id).single()
-
-  if (userData?.role !== "admin") {
-    redirect("/products")
-  }
-
-  const { data: product } = await supabase.from("products").select("*").eq("id", id).single()
+  const product = getProductById(id)
 
   if (!product) {
     notFound()

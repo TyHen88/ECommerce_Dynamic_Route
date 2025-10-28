@@ -48,7 +48,7 @@ export function InstallPrompt() {
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-2">
               <Download className="h-5 w-5" />
-              <CardTitle className="text-lg">Install E-Shop</CardTitle>
+              <CardTitle className="text-lg">Install Easy-Cart</CardTitle>
             </div>
             <Button variant="ghost" size="sm" className="h-6 w-6 p-0" onClick={handleDismiss}>
               <X className="h-4 w-4" />

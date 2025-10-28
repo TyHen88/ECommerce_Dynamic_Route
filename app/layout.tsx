@@ -2,36 +2,42 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { Toaster } from "@/components/ui/toaster"
+import { Providers } from "@/components/providers"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist-sans",
+})
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+})
 
 export const metadata: Metadata = {
-  title: "E-Shop - Your Online Store",
+  title: "Easy-Cart - Your Online Store",
   description: "Modern e-commerce platform with admin management. Shop the latest products with secure checkout.",
-  generator: "v0.app",
+  generator: "Next.js",
   manifest: "/manifest.json",
   keywords: ["ecommerce", "shop", "online store", "products", "shopping"],
-  authors: [{ name: "E-Shop" }],
+  authors: [{ name: "Easy-Cart" }],
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "E-Shop",
+    title: "Easy-Cart",
   },
   formatDetection: {
     telephone: false,
   },
   openGraph: {
     type: "website",
-    siteName: "E-Shop",
-    title: "E-Shop - Your Online Store",
+    siteName: "Easy-Cart",
+    title: "Easy-Cart - Your Online Store",
     description: "Modern e-commerce platform with admin management",
   },
   twitter: {
     card: "summary",
-    title: "E-Shop - Your Online Store",
+    title: "Easy-Cart - Your Online Store",
     description: "Modern e-commerce platform with admin management",
   },
 }
@@ -49,14 +55,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/icon-192x192.jpg" />
       </head>
-      <body className={`font-sans antialiased`}>
-        {children}
-        <Toaster />
+      <body className={`${geist.className} font-sans antialiased`}>
+        <Providers>
+          {children}
+        </Providers>
         <Analytics />
       </body>
     </html>

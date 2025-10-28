@@ -14,7 +14,7 @@ export default function HomePage() {
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-balance">
-                  Welcome to E-Shop
+                  Welcome to Easy-Cart
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl text-pretty">
                   Discover amazing products at great prices. Shop with confidence and enjoy fast delivery.
@@ -69,7 +69,7 @@ export default function HomePage() {
 
       <footer className="w-full border-t py-6">
         <div className="container flex flex-col gap-2 sm:flex-row items-center justify-between px-4 md:px-6">
-          <p className="text-xs text-muted-foreground">© 2025 E-Shop. All rights reserved.</p>
+          <p className="text-xs text-muted-foreground">© 2025 Easy-Cart. All rights reserved.</p>
           <nav className="flex gap-4 sm:gap-6">
             <Link className="text-xs hover:underline underline-offset-4" href="#">
               Terms of Service

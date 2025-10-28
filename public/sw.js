@@ -1,4 +1,4 @@
-const CACHE_NAME = "e-shop-v1"
+const CACHE_NAME = "Easy-Cart-v1"
 const urlsToCache = ["/", "/products", "/manifest.json", "/icon-192x192.jpg", "/icon-512x512.jpg"]
 
 // Install service worker

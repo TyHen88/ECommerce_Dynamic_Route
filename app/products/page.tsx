@@ -1,7 +1,7 @@
-import { createClient } from "@/lib/supabase/server"
 import { Header } from "@/components/header"
 import { ProductGrid } from "@/components/product-grid"
 import { ProductFilters } from "@/components/product-filters"
+import { getProducts, getCategories } from "@/lib/data"
 
 export default async function ProductsPage({
   searchParams,
@@ -9,25 +9,15 @@ export default async function ProductsPage({
   searchParams: Promise<{ category?: string; search?: string }>
 }) {
   const params = await searchParams
-  const supabase = await createClient()
 
-  let query = supabase.from("products").select("*").gt("stock", 0).order("created_at", { ascending: false })
+  const products = getProducts({
+    category: params.category,
+    search: params.search,
+    inStock: true
+  })
 
-  if (params.category) {
-    query = query.eq("category", params.category)
-  }
+  const categories = getCategories()
 
-  if (params.search) {
-    query = query.ilike("name", `%${params.search}%`)
-  }
-
-  const { data: products } = await query
-
-  // Get unique categories
-  const { data: allProducts } = await supabase.from("products").select("category")
-  const categories = [...new Set(allProducts?.map((p) => p.category).filter(Boolean))] as string[]
-
-  console.log("allProducts", allProducts);
   return (
     <>
       <Header />
@@ -43,8 +33,8 @@ export default async function ProductsPage({
               <ProductFilters categories={categories} currentCategory={params.category} currentSearch={params.search} />
             </aside>
 
-            <div className="flex-1">
-              {products && products.length > 0 ? (
+            <div className="flex-1 overflow-auto" style={{ maxHeight: "calc(100vh - 180px)" }}>
+              {products.length > 0 ? (
                 <ProductGrid products={products} />
               ) : (
                 <div className="text-center py-12">

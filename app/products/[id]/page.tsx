@@ -1,22 +1,19 @@
 import { notFound } from "next/navigation"
-import { createClient } from "@/lib/supabase/server"
 import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowLeft, Package, Tag } from "lucide-react"
 import Link from "next/link"
+import { getProductById } from "@/lib/data"
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const supabase = await createClient()
-
-  const { data: product } = await supabase.from("products").select("*").eq("id", id).single()
+  const product = getProductById(id)
 
   if (!product) {
     notFound()
   }
-  console.log("product", product);
 
   return (
     <>

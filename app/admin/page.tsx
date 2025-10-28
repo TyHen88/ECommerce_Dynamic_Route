@@ -1,28 +1,14 @@
 import { redirect } from "next/navigation"
-import { createClient } from "@/lib/supabase/server"
 import { AdminProductList } from "@/components/admin-product-list"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
+import { getProducts } from "@/lib/data"
 
 export default async function AdminPage() {
-  const supabase = await createClient()
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    redirect("/auth/login")
-  }
-
-  const { data: userData } = await supabase.from("users").select("role").eq("id", user.id).single()
-
-  if (userData?.role !== "admin") {
-    redirect("/products")
-  }
-
-  const { data: products } = await supabase.from("products").select("*").order("created_at", { ascending: false })
+  // For demo purposes, we'll assume user is always admin
+  // In a real app, you'd check authentication here
+  const products = getProducts()
 
   return (
     <div className="min-h-screen bg-background">
@@ -49,7 +35,7 @@ export default async function AdminPage() {
           <p className="text-muted-foreground">Manage your product catalog</p>
         </div>
 
-        <AdminProductList products={products || []} />
+        <AdminProductList products={products} />
       </main>
     </div>
   )
