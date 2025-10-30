@@ -44,7 +44,10 @@ export default async function ProductsPage({
 
             <div className="flex-1 overflow-auto" style={{ maxHeight: "calc(100vh - 180px)" }}>
               {products.length > 0 ? (
-                <ProductGrid products={products} />
+                <ProductGrid products={products.map(product => ({
+                  ...product,
+                  image_url: product.image_url?.[0]?.url || ""
+                }))} />
               ) : (
                 <div className="text-center py-12">
                   <p className="text-muted-foreground text-lg">No products found</p>

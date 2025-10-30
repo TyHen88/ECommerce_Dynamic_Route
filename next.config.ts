@@ -7,15 +7,22 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    // ✅ Replace deprecated `domains` with `remotePatterns`
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'placeholder.svg', // or the real image host
-        pathname: '**',
-      },
+    domains: [
+      'localhost',
+      // Google OAuth profile images
+      'lh3.googleusercontent.com',
+      'lh4.googleusercontent.com',
+      'lh5.googleusercontent.com',
+      'lh6.googleusercontent.com',
+      // GitHub OAuth profile images (for future use)
+      'avatars.githubusercontent.com',
+      // Microsoft OAuth profile images (for future use)
+      'graph.microsoft.com',
+      // Product images
+      'images.unsplash.com',
+      'www.qoltec.com',
+      'dragonimage.com.au',
     ],
-    unoptimized: true,
   },
 }
 

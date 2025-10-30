@@ -6,6 +6,21 @@ export interface User {
   updated_at: string
 }
 
+export interface UserInfo {
+  data: {
+    id: number
+    fullName: string
+    username: string
+    email: string
+    active: boolean
+    createdAt: string
+    updatedAt: string
+    role: string
+    profileImageUrl: string | null
+    authProvider: string
+  } | null
+}
+
 export interface Product {
   id: string
   name: string
