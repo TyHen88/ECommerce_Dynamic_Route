@@ -6,10 +6,10 @@ import { InstallPrompt } from "@/app/install-prompt"
 
 export default function HomePage() {
   return (
-    <>
+    <div className="w-full h-full flex flex-col">
       <Header />
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+      <main className="flex-1 w-full h-full">
+        <section className="w-full h-full flex justify-center items-center py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
@@ -82,6 +82,6 @@ export default function HomePage() {
       </footer>
 
       <InstallPrompt />
-    </>
+    </div>
   )
 }

@@ -1,7 +1,13 @@
+"use client"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { Toggle } from "@/components/ui/toggle"
+import { BookmarkIcon, ShoppingCartIcon } from "lucide-react"
+import * as React from "react"
+import { toast } from "sonner"
+import { useCartStore } from "@/stores/cart.store"
 
 type Product = {
   id: string
@@ -14,6 +20,25 @@ type Product = {
 }
 
 export function ProductGrid({ products }: { products: Product[] }) {
+  const { addItem, removeItem, items } = useCartStore()
+  const handleToggleCart = (product: Product, checked: boolean) => {
+    if (checked) {
+      // Add to cart
+      addItem({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image_url || "",
+        category: product.category || ""
+      })
+      toast.success(`${product.name} has been added to your cart`)
+    } else {
+      // Remove from cart
+      removeItem(product.id)
+      toast.success(`${product.name} has been removed from your cart`)
+    }
+  }
+
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {products.map((product) => (
@@ -44,10 +69,20 @@ export function ProductGrid({ products }: { products: Product[] }) {
               </Badge>
             </div>
           </CardContent>
-          <CardFooter className="p-6 pt-0">
+          <CardFooter className="p-6 pt-0 gap-2">
             <Link href={`/products/${product.id}`} className="w-full">
-              <Button className="w-full">View Details</Button>
+              <Button className="w-full cursor-pointer">View Details</Button>
             </Link>
+            <Toggle
+              aria-label="Add to cart"
+              size="default"
+              variant="outline" onClick={() => handleToggleCart(product, !items.some(p => p.id === product.id))}
+              className="h-10 cursor-pointer data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500 w-full"
+            >
+              <ShoppingCartIcon />
+              {items.some(p => p.id === product.id) ? "In Cart" : "Add to Cart"}
+            </Toggle>
+
           </CardFooter>
         </Card>
       ))}

@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Providers } from "@/components/providers"
+import RouteProgress from "@/components/route-progress"
 import "./globals.css"
 
 const geist = Geist({
@@ -64,6 +65,7 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <RouteProgress />
         <Analytics />
       </body>
     </html>

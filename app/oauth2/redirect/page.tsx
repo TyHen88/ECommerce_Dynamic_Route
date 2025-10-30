@@ -45,15 +45,21 @@ export default function OAuth2Redirect() {
                 setStatusState("success")
 
                 // Wait a moment for storage to be set
-                await new Promise(resolve => setTimeout(resolve, 500))
+                await new Promise(resolve => setTimeout(resolve, 200))
 
-                toast.success("Authentication successful", {
-                    description: "Redirecting to your dashboard...",
+                toast.promise(
+                    () =>
+                        new Promise<{ name: string }>((resolve) =>
+                            setTimeout(() => resolve({ name: "Authentication successful" }), 2000)
+                        ),
+                    {
+                        loading: "Authenticating...",
+                        success: (data: { name: string }) => `${data.name}`,
+                        error: (error: { message: string }) => `${error.message} Authentication failed`,
+                    }
+                ).unwrap().then(() => {
+                    router.push("/products")
                 })
-
-                // Redirect to main app
-                router.push("/products")
-
             } catch (error) {
                 console.error("OAuth redirect error:", error)
                 setStatusState("error")

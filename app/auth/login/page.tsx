@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { initiateGoogleLogin } from "@/utils/googleOAuth"
 import { authService } from "@/service/auth.service"
+import { Separator } from "@/components/ui/separator"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -59,8 +60,8 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
-            <CardDescription>Enter your email below to login to your account</CardDescription>
+            <CardTitle className="text-2xl text-center">Welcome back!</CardTitle>
+            <CardDescription className="text-center">Enter your email below to login to your account</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin}>
@@ -99,13 +100,12 @@ export default function LoginPage() {
                   {isLoading ? "Logging in..." : "Login"}
                 </Button>
               </div>
-              <div className="mt-4 text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <Link href="/auth/sign-up" className="underline underline-offset-4">
-                  Sign up
-                </Link>
-              </div>
 
+              <div className="flex items-center gap-2 justify-center w-full mt-6 mb-2">
+                <Separator className="inline-block flex-1" />
+                <span className="inline-block text-muted-foreground text-sm px-2">or</span>
+                <Separator className="inline-block flex-1" />
+              </div>
               {/* Google OAuth2 */}
               <div className="mt-6">
                 <Button
@@ -135,6 +135,12 @@ export default function LoginPage() {
                   </svg>
                   Continue with Google
                 </Button>
+              </div>
+              <div className="mt-4 text-center text-sm">
+                Don&apos;t have an account?{" "}
+                <Link href="/auth/sign-up" className="underline underline-offset-4">
+                  Sign up
+                </Link>
               </div>
             </form>
           </CardContent>

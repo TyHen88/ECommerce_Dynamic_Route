@@ -2,6 +2,9 @@ import { Header } from "@/components/header"
 import { ProductGrid } from "@/components/product-grid"
 import { ProductFilters } from "@/components/product-filters"
 import { getProducts, getCategories } from "@/lib/data"
+import { BookmarkIcon, ShoppingBag, ShoppingBasket, ShoppingCart } from "lucide-react"
+import { OrderDraftSheet } from "@/components/products/OrderDraftSheet"
+import { Toggle } from "@/components/ui/toggle"
 
 export default async function ProductsPage({
   searchParams,
@@ -19,13 +22,19 @@ export default async function ProductsPage({
   const categories = getCategories()
 
   return (
-    <>
+    <div className="w-full h-full flex flex-col">
       <Header />
-      <main className="min-h-screen bg-background">
-        <div className="container py-8 px-4 md:px-6">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold tracking-tight mb-2">Our Products</h1>
-            <p className="text-muted-foreground text-lg">Discover our amazing collection</p>
+      <main className="min-h-screen bg-background w-full flex justify-center">
+        <div className="container py-8 px-4 md:px-6 w-full">
+          <div className="flex items-center mb-6">
+            <div className="flex-1">
+              <h1 className="text-4xl font-bold tracking-tight mb-2">Our Products</h1>
+              <p className="text-muted-foreground text-lg">Discover our amazing collection</p>
+            </div>
+            <div className="flex-shrink-0 ml-4">
+
+              <OrderDraftSheet />
+            </div>
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8">
@@ -45,6 +54,6 @@ export default async function ProductsPage({
           </div>
         </div>
       </main>
-    </>
+    </div>
   )
 }

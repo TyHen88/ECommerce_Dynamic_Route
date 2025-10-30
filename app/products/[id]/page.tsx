@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ArrowLeft, Package, Tag } from "lucide-react"
 import Link from "next/link"
 import { getProductById } from "@/lib/data"
+import { OrderDraftSheet } from "@/components/products/OrderDraftSheet"
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -18,14 +19,20 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-background w-full flex justify-center">
         <div className="container py-8 px-4 md:px-6">
-          <Link href="/products">
-            <Button variant="ghost" size="sm" className="mb-6">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Products
-            </Button>
-          </Link>
+          <div className="flex justify-between items-center mb-6">
+
+            <Link href="/products">
+              <Button variant="ghost" size="sm" className="mb-6">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Products
+              </Button>
+            </Link>
+            <div className="flex justify-end mt-4">
+              <OrderDraftSheet />
+            </div>
+          </div>
 
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="aspect-square relative overflow-hidden rounded-lg bg-muted">
